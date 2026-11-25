@@ -6,6 +6,7 @@ import type { AdminSummary } from '../api/types'
 import { useAdminSummary } from '../lib/useAdminSummary'
 import { useUnreadAlerts } from '../lib/useUnreadAlerts'
 import { Icon, type IconName } from './Icon'
+import { ThemeToggle } from './ThemeToggle'
 
 interface NavItem {
   label: string
@@ -57,7 +58,7 @@ function Badge({ count }: { count: number | undefined }) {
   return <><span className="count" aria-hidden="true">{count > 99 ? '99+' : count}</span><span className="sr"> ({count} new)</span></>
 }
 
-const avatarColor: Record<string, string> = { OWNER: 'var(--orange)', ADMIN: 'var(--ink)', CONSUMER: 'var(--lime)' }
+const avatarClass: Record<string, string> = { OWNER: 'orange', ADMIN: 'teal', CONSUMER: 'lime' }
 
 /** Header with the nav for the signed-in role; on phones the nav moves to a bottom tab bar. */
 export function AppFrame({ children }: { children: ReactNode }) {
@@ -91,18 +92,18 @@ export function AppFrame({ children }: { children: ReactNode }) {
             ))}
           </nav>
           <span className="grow hide-desktop" />
+          <ThemeToggle />
           {!ownerArea && (
             <a className="btn sm hide-phone" href={href(paths.cart)} aria-current={path === paths.cart ? 'page' : undefined}>
               <Icon name="cart" size={18} /> Cart
             </a>
           )}
           {user ? (
-            <a className="avatar" href={href(paths.account)} aria-label={`Account: ${user.username}`}
-              style={{ background: avatarColor[user.role], color: user.role === 'ADMIN' ? '#fff' : undefined }}>
+            <a className={`avatar ${avatarClass[user.role] ?? ''} hide-phone`} href={href(paths.account)} aria-label={`Account: ${user.username}`}>
               {user.username.charAt(0)}
             </a>
           ) : (
-            <a className="btn sm" href={href(paths.login)}>Log in</a>
+            <a className="btn sm hide-phone" href={href(paths.login)}>Log in</a>
           )}
         </div>
       </header>
