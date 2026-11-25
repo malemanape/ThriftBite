@@ -12,7 +12,7 @@ import { gap } from '../lib/style'
 import { useLoad } from '../lib/useLoad'
 
 const since = { CONSUMER: 'Buying since', OWNER: 'Store account since', ADMIN: 'Admin since' } as const
-const avatarColor = { CONSUMER: 'var(--lime)', OWNER: 'var(--orange)', ADMIN: 'var(--ink)' } as const
+const avatarClass = { CONSUMER: 'lime', OWNER: 'orange', ADMIN: 'teal' } as const
 
 function problemOf(err: unknown): string {
   return err instanceof ApiError && err.retryAfter
@@ -32,8 +32,7 @@ export function Account() {
     <div className="stack" style={gap(24, { maxWidth: 760 })}>
       <div className="page-head">
         <div className="row" style={gap(14)}>
-          <span className="avatar" aria-hidden="true"
-            style={{ width: 56, height: 56, fontSize: 24, background: avatarColor[account.role], color: account.role === 'ADMIN' ? '#fff' : undefined }}>
+          <span className={`avatar ${avatarClass[account.role]}`} aria-hidden="true" style={{ width: 56, height: 56, fontSize: 26, borderRadius: 16 }}>
             {account.username.charAt(0)}
           </span>
           <div className="stack" style={gap(2)}>
@@ -71,7 +70,7 @@ export function Account() {
 function Savings({ buyer }: { buyer: NonNullable<AccountSummary['buyer']> }) {
   const top = Math.max(1, ...buyer.months.map((m) => m.saved))
   return (
-    <section className="card" style={{ background: 'var(--lime)' }}>
+    <section className="card" style={{ background: 'var(--lime-soft)' }}>
       <div className="two" style={{ padding: 24, gap: 24, alignItems: 'center' }}>
         <div className="stack" style={gap(6)}>
           <span style={{ fontWeight: 700 }}>You’ve saved</span>
