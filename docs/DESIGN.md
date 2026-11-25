@@ -41,6 +41,7 @@ A store can put a photo on a listing and on its own page. Photos are stored in P
 - **Lists use the small one**, loaded only when scrolled to.
 - The same file uploaded twice is stored once. A store keeps up to 200 photos, and ones nothing shows anymore are deleted (unused after a day, or only on listings that ended two months ago).
 - "Post again" brings a food's last photo with it.
+- **No photo, no blank tile.** A listing without a photo shows one of the app's own food drawings. The store can pick one; otherwise the app picks one from the food's name. Only names from a fixed list are accepted, so nothing a store types ends up in an image address.
 - **Uploads are off for the shared demo accounts**, so nobody can put a picture on the public demo. To give the demo's sample listings photos, add files to [`backend/src/main/resources/demo/photos`](../backend/src/main/resources/demo/photos/README.md).
 
 ## Report a problem
@@ -100,6 +101,7 @@ Reserving is free (buyers pay at the counter), so the API limits abuse:
 - Live connections: 500 at once in total, 60 from one address, and 300 opened per address per 10 minutes.
 - Photo uploads: 30 per address per 10 minutes. Viewing photos has its own limit (6,000 per 10 minutes), so a page full of pictures doesn't use up the limit for everything else.
 - Problem reports: 5 per buyer per day.
+- Searches: up to 120 characters, the length of the longest food name. A longer search couldn't match anything but would still be checked against every listing.
 
 ## Security notes
 
@@ -109,5 +111,5 @@ Reserving is free (buyers pay at the counter), so the API limits abuse:
 - **Every lookup is scoped to the caller.** The user id comes from the verified token, never from the request, and a store can only reach its own listings and pickups.
 - **Rate limits use the visitor's own address.** Behind Render that is the `CF-Connecting-IP` header (set in `render.yaml`); `X-Forwarded-For` can be faked there.
 - **The demo admin is boxed in.** Anyone can log in as it, so it only sees and approves the demo's sample stores, only sees and answers reports that demo buyers made about demo stores, only sees and suspends the demo's sample accounts (never the shared logins), and only sees demo admins' lines in the activity log.
-- **The frontend sends a Content Security Policy** (`frontend/vercel.json`): scripts only from the site itself, API calls and the live connection only to the site and `*.onrender.com`, and no framing by other sites. If the API moves to another domain, update `connect-src` and `img-src` there (photos load from the API).
+- **The frontend sends a Content Security Policy** (`frontend/vercel.json`): scripts, styles and fonts only from the site itself (the fonts are served by the app, not Google), API calls and the live connection only to the site and `*.onrender.com`, and no framing by other sites. If the API moves to another domain, update `connect-src` and `img-src` there (photos load from the API).
 - **The live connection** only accepts pages from the frontend's own address (the CORS list), takes one small login message and closes on anything else, and drops browsers that stop reading.
