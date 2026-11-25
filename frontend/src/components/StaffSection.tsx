@@ -54,7 +54,7 @@ export function StaffSection() {
       </div>
 
       {issued && (
-        <div role="status" className="card-row stack" style={gap(8, { background: 'var(--lime)' })}>
+        <div role="status" className="card-row stack" style={gap(8, { background: 'var(--lime-soft)' })}>
           <strong>Give {issued.username} this password. It won’t be shown again.</strong>
           <code className="num" style={{ fontSize: 24, fontWeight: 700, letterSpacing: 1 }}>{issued.temporaryPassword}</code>
           <p className="small">They log in with it and can change it on their account page. If it gets lost, give them a new one from here.</p>
@@ -108,7 +108,7 @@ function StaffRow({ member, busy, confirming, onNewPassword, onAskRemove, onCanc
     <div className="card-row stack" style={gap(10)}>
       <div className="spread" style={{ flexWrap: 'wrap', gap: 12 }}>
         <div className="row" style={gap(12)}>
-          <span className="avatar" aria-hidden="true" style={{ background: 'var(--orange)' }}>{member.username.charAt(0)}</span>
+          <span className="avatar orange" aria-hidden="true">{member.username.charAt(0)}</span>
           <div>
             <strong>{member.username}</strong>
             <p className="hint">Added {dayOf(member.addedAt)}</p>
