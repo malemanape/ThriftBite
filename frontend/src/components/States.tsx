@@ -9,7 +9,7 @@ export function ProblemPanel({ error, onRetry }: { error: unknown; onRetry?: () 
   const offline = error instanceof NetworkError
   const server = error instanceof ApiError && error.status >= 500
   return (
-    <div role="alert" className="panel notice" style={{ background: offline ? 'var(--ink)' : 'var(--paper)', color: offline ? '#fff' : undefined }}>
+    <div role="alert" className={`panel notice${offline ? ' dark' : ''}`}>
       <span className="tag orange" style={{ flex: 'none' }}>{offline ? 'Offline' : server ? 'Error' : 'Problem'}</span>
       <p className="grow">
         {offline
@@ -25,7 +25,7 @@ export function ProblemPanel({ error, onRetry }: { error: unknown; onRetry?: () 
 export function Empty({ title, children, action }: { title: string; children?: ReactNode; action?: ReactNode }) {
   return (
     <section className="card cream empty">
-      <img src={thryxFull} alt="" width={220} height={216} className="hide-phone" />
+      <img src={thryxFull} alt="" width={200} height={196} className="hide-phone" />
       <div className="stack" style={{ maxWidth: 560 }}>
         <h2 className="wide" style={{ fontSize: 30, lineHeight: '34px' }}>{title}</h2>
         {children && <div style={{ fontSize: 17, lineHeight: '26px' }}>{children}</div>}
