@@ -129,7 +129,7 @@ function ReportForm({ subject, reservationId, storeSlug, back }: Props & { subje
           {reportKinds.map((entry) => (
             <label key={entry.kind} className="row choice" style={gap(10)}>
               <input type="radio" name="kind" value={entry.kind} checked={kind === entry.kind} onChange={() => setKind(entry.kind)}
-                style={{ width: 20, height: 20, flex: 'none', accentColor: 'var(--ink)' }} />
+                style={{ width: 20, height: 20, flex: 'none', accentColor: 'var(--teal)' }} />
               {entry.label}
             </label>
           ))}
