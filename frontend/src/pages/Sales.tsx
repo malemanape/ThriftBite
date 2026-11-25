@@ -73,7 +73,7 @@ function Report({ stats, range }: { stats: SalesStats; range: Range }) {
   return (
     <>
       <div className="kpis">
-        <div className="card kpi" style={{ background: 'var(--lime)' }}>
+        <div className="card kpi lime">
           <span className="small" style={{ fontWeight: 600 }}>Money made</span>
           <strong className="wide value num">{pesoShort(t.moneyMade)}</strong>
           <span className="note">
@@ -90,7 +90,7 @@ function Report({ stats, range }: { stats: SalesStats; range: Range }) {
           <strong className="wide value num">{percent(t.sellThrough)}</strong>
           <span className="note">{t.unitsLeftOver} left over of {t.unitsListed}</span>
         </div>
-        <div className="card kpi" style={{ background: (t.missedRate ?? 0) > 0.15 ? 'var(--orange)' : undefined }}>
+        <div className={`card kpi${(t.missedRate ?? 0) > 0.15 ? ' orange' : ''}`}>
           <span className="small muted" style={{ fontWeight: 600, color: 'inherit' }}>Missed pickups</span>
           <strong className="wide value num">{t.missedPickups}</strong>
           <span className="note">{percent(t.missedRate)} of reservations, {pesoShort(t.missedValue)} held back</span>
@@ -122,7 +122,8 @@ function Report({ stats, range }: { stats: SalesStats; range: Range }) {
               bars={stats.pickupsByHour.map((h) => ({
                 key: String(h.hour),
                 value: h.pickups,
-                axis: clockOf(`${h.hour}:00`).replace(':00', ''),
+                // Every third hour is labelled; 24 labels don't fit side by side.
+                axis: stats.pickupsByHour.length > 12 && h.hour % 3 !== 0 ? '' : clockOf(`${h.hour}:00`).replace(':00', ''),
                 title: `${clockOf(`${h.hour}:00`)}: ${plural(h.pickups, 'pickup')}`,
               }))}
               format={String}
