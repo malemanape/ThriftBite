@@ -1,6 +1,8 @@
 import { useCallback, useState, type FormEvent, type ReactNode } from 'react'
 import { api, photoUrl } from '../api/client'
+import { ArtPicker } from '../components/ArtPicker'
 import { PhotoPicker } from '../components/PhotoPicker'
+import { artFor } from '../lib/art'
 import { Loading } from '../components/States'
 import { messageOf } from '../lib/errors'
 import { clockOf, manilaDate, manilaInstant, peso } from '../lib/format'
@@ -62,6 +64,7 @@ function ListingForm({ start }: { start: Draft }) {
   const today = manilaDate(now)
   const [draft, setDraft] = useState<Draft>(start)
   const [photoId, setPhotoId] = useState<string | null>(null)
+  const [art, setArt] = useState<string | null>(null)
   const [touched, setTouched] = useState(false)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -93,6 +96,7 @@ function ListingForm({ start }: { start: Draft }) {
         // The listing comes off the app when pickup ends.
         expiresAt: pickupEnd,
         photoId,
+        art,
       })
       navigate(paths.owner)
     } catch (err) {
@@ -132,9 +136,10 @@ function ListingForm({ start }: { start: Draft }) {
         <form className="card stack" style={gap(18, { padding: 24 })} onSubmit={submit} noValidate>
           {field('name', 'Food', <input {...attrs('name')} maxLength={120} placeholder="Ensaymada, box of 6" />)}
           {field('description', 'Details (optional)', <textarea {...attrs('description')} maxLength={500} rows={3}
-            placeholder="Baked this morning. Ube and cheese." style={{ resize: 'vertical', padding: '10px 14px', height: 'auto' }} />)}
+            placeholder="Baked this morning. Ube and cheese." />)}
           <PhotoPicker id="listing-photo" label="Photo (optional)" photoId={photoId} onChange={setPhotoId}
             hint="Listings with a photo of the actual food get reserved faster. Any phone photo works." />
+          {!photoId && <ArtPicker value={art} name={draft.name} onChange={setArt} />}
           <div className="three" style={{ gap: 14 }}>
             {field('originalPrice', 'Usual price (₱)', <input {...attrs('originalPrice')} type="number" inputMode="decimal" min={0.01} step={0.01} />)}
             {field('price', 'Tonight’s price (₱)', <input {...attrs('price')} type="number" inputMode="decimal" min={0} step={0.01} />)}
@@ -147,7 +152,7 @@ function ListingForm({ start }: { start: Draft }) {
           </div>
           {error && <p role="alert" className="err">{error}</p>}
           <div className="wrap-row">
-            <button type="submit" className="btn teal big" disabled={busy}>{busy ? 'Posting…' : 'Post listing'}</button>
+            <button type="submit" className="btn lime big" disabled={busy}>{busy ? 'Posting…' : 'Post listing'}</button>
             <a className="btn big" href={href(paths.owner)}>Cancel</a>
           </div>
         </form>
@@ -155,14 +160,14 @@ function ListingForm({ start }: { start: Draft }) {
         <aside className="stack" style={gap(12)} aria-label="Preview">
           <strong>How buyers will see it</strong>
           <article className="card deal">
-            <div className="photo shot">
-              {photoId ? <img src={photoUrl(photoId, 'thumb')} alt="" /> : <span>No photo</span>}
-              {off != null && off > 0 && <span className="tag lime tilt">{off}% off</span>}
+            <div className={`photo shot art-bg-${artFor(art, draft.name).tile}`}>
+              {photoId ? <img src={photoUrl(photoId, 'thumb')} alt="" /> : <img className="art" src={artFor(art, draft.name).src} alt="" />}
+              {off != null && off > 0 && <span className="price-tag">−{off}%</span>}
             </div>
             <div className="deal-body">
               <h3>{draft.name.trim() || 'Your food'}</h3>
               <p className="price">
-                <strong className="wide num">{draft.price !== '' && price >= 0 ? peso(price) : '₱–'}</strong>
+                <strong className="num">{draft.price !== '' && price >= 0 ? peso(price) : '₱–'}</strong>
                 {original > 0 && <s className="muted num small">{peso(original)}</s>}
               </p>
               <div className="wrap-row" style={gap(6)}>

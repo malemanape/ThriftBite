@@ -69,9 +69,16 @@ public class Item {
     @Column(nullable = false, length = 20)
     private ItemStatus status;
 
+    /** The food drawings a store can pick for a listing without a photo. Same list as the V13 migration. */
+    public static final String ART = "rice-bowl|veg-bowl|cup|buns|swirl|long-bread|rolls|loaf|croissant";
+
     /** The listing's photo (see the photo package), or null. */
     @Column(name = "photo_id")
     private UUID photoId;
+
+    /** The food drawing shown when there's no photo, or null to let the app pick. */
+    @Column(length = 20)
+    private String art;
 
     @Version
     @Column(nullable = false)
@@ -133,6 +140,11 @@ public class Item {
         this.status = quantity > 0 ? ItemStatus.AVAILABLE : ItemStatus.SOLD_OUT;
     }
 
+    /** @param art one of {@link #ART}, or null */
+    public void useArt(String art) {
+        this.art = art;
+    }
+
     /** @param photoId one of the store's own photos, or null for none */
     public void usePhoto(UUID photoId) {
         this.photoId = photoId;
@@ -168,6 +180,7 @@ public class Item {
     public Instant getPickupEnd() { return pickupEnd; }
     public ItemStatus getStatus() { return status; }
     public UUID getPhotoId() { return photoId; }
+    public String getArt() { return art; }
     public long getVersion() { return version; }
     public Instant getCreatedAt() { return createdAt; }
     public Instant getUpdatedAt() { return updatedAt; }

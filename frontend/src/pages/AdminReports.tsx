@@ -41,7 +41,7 @@ export function AdminReports() {
         </p>
       )}
       {tab === 'open' && (
-        <p className="panel cream" style={{ padding: '16px 20px' }}>
+        <p className="panel" style={{ padding: '16px 20px' }}>
           A report is one side of the story. Before you answer, look at the store’s page and how many reports it has had, and
           call the store if it’s about food safety. Your reply goes to the buyer; the store isn’t told who reported it.
         </p>
@@ -100,10 +100,10 @@ function ReportCard({ report, onAnswered }: { report: AdminReport; onAnswered: (
         {report.pickup ? <><strong>Pickup:</strong> {report.pickup}.</> : 'About the store in general, not one pickup.'}
       </p>
       {report.details
-        ? <p className="panel cream" style={{ padding: '10px 14px' }}>“{report.details}”</p>
+        ? <p className="panel" style={{ padding: '10px 14px' }}>“{report.details}”</p>
         : <p className="hint">{report.reporter === 'Deleted account' ? 'The buyer deleted their account, so what they wrote is gone.' : 'The buyer didn’t add any details.'}</p>}
       {(report.storeReports > 1 || report.reporterReports > 3) && (
-        <div className="wrap-row" style={{ ['--gap' as string]: '8px' }}>
+        <div className="wrap-row" style={gap(8)}>
           {report.storeReports > 1 && <span className="tag orange">{plural(report.storeReports, 'report')} about this store in 90 days</span>}
           {report.reporterReports > 3 && <span className="tag cream">This buyer sent {plural(report.reporterReports, 'report')} in 90 days</span>}
         </div>
@@ -114,8 +114,7 @@ function ReportCard({ report, onAnswered }: { report: AdminReport; onAnswered: (
           <div className="field">
             <label htmlFor={id}>Reply to the buyer</label>
             <textarea id={id} className={`input${touched && tooShort ? ' bad' : ''}`} rows={3} maxLength={500} value={reply}
-              onChange={(e) => setReply(e.target.value)} aria-invalid={touched && tooShort ? true : undefined} aria-describedby={`${id}-hint`}
-              style={{ resize: 'vertical', padding: '10px 14px', height: 'auto' }} />
+              onChange={(e) => setReply(e.target.value)} aria-invalid={touched && tooShort ? true : undefined} aria-describedby={`${id}-hint`} />
             {touched && tooShort
               ? <span id={`${id}-hint`} role="alert" className="err">Write a sentence saying what you found or did.</span>
               : <span id={`${id}-hint`} className="hint">Say what you found and what you did about it. They’ll see it on their account page.</span>}
@@ -123,7 +122,7 @@ function ReportCard({ report, onAnswered }: { report: AdminReport; onAnswered: (
           {report.pickupMissed && (
             <label className="row" style={gap(10, { cursor: 'pointer' })}>
               <input type="checkbox" checked={excuse} onChange={(e) => setExcuse(e.target.checked)}
-                style={{ width: 20, height: 20, flex: 'none', accentColor: 'var(--ink)' }} />
+                style={{ width: 20, height: 20, flex: 'none', accentColor: 'var(--teal)' }} />
               <span>Don’t count this missed pickup against the buyer <span className="hint">(for when it wasn’t their fault)</span></span>
             </label>
           )}

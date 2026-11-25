@@ -2,6 +2,7 @@ import { useRef, useState, type ChangeEvent } from 'react'
 import { api, photoUrl } from '../api/client'
 import { messageOf } from '../lib/errors'
 import { PhotoError, shrinkPhoto } from '../lib/photo'
+import { gap } from '../lib/style'
 
 interface Props {
   /** For the label and the input's id, e.g. "listing-photo". */
@@ -40,11 +41,11 @@ export function PhotoPicker({ id, label, hint, photoId, onChange }: Props) {
         <div className="photo shot">
           {photoId ? <img src={photoUrl(photoId, 'thumb')} alt="The photo you chose" /> : <span>No photo yet</span>}
         </div>
-        <div className="stack" style={{ ['--gap' as string]: '8px', alignItems: 'flex-start' }}>
+        <div className="stack" style={gap(8, { alignItems: 'flex-start' })}>
           {/* Phones offer the camera as well as the gallery for a plain image input. */}
           <input ref={input} id={id} className="sr" type="file" accept="image/*" onChange={choose} disabled={busy}
             tabIndex={-1} aria-describedby={`${id}-hint`} />
-          <div className="wrap-row" style={{ ['--gap' as string]: '8px' }}>
+          <div className="wrap-row" style={gap(8)}>
             <button type="button" className="btn sm" disabled={busy} onClick={() => input.current?.click()}>
               {busy ? 'Uploading…' : photoId ? 'Change photo' : 'Add a photo'}
             </button>

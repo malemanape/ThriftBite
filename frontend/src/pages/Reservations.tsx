@@ -79,7 +79,7 @@ export function Reservations() {
         <div className="two" style={{ alignItems: 'start' }}>
           {active.map((r) => (
             <section key={r.id} className="card">
-              <div className="card-head" style={{ background: 'var(--lime)' }}>
+              <div className="card-head" style={{ background: 'var(--lime-soft)' }}>
                 <div>
                   <h2 style={{ fontSize: 18, fontWeight: 800 }}>{r.storeName}</h2>
                   <p className="small">{r.items[0]?.pickupLocation}</p>
@@ -90,7 +90,7 @@ export function Reservations() {
                 {r.items.map((line) => (
                   <p key={line.itemId} className="spread num"><span>{line.quantity} × {line.name}</span><span>{peso(line.unitPrice * line.quantity)}</span></p>
                 ))}
-                <p className="spread num" style={{ borderTop: '2px solid var(--ink)', paddingTop: 8, fontWeight: 800 }}>
+                <p className="spread num" style={{ borderTop: '3px dashed var(--halo)', paddingTop: 8, fontWeight: 800 }}>
                   <span>Pay at the counter</span><span>{peso(r.total)}</span>
                 </p>
                 <p className="small">Claim code <strong className="num">{r.claimCode && spacedCode(r.claimCode)}</strong></p>

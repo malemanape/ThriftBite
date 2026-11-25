@@ -5,8 +5,11 @@ import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
+
+import com.thriftbite.backend.item.Item;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -17,6 +20,7 @@ import java.util.UUID;
  * (price vs. original price, pickup window vs. expiry) are checked in ItemService.
  *
  * @param photoId a photo uploaded to /api/owner/photos, or null for none
+ * @param art     the food drawing to show when there's no photo (see Item.ART), or null to let the app pick
  * @param version required when updating: the version you last saw, so you can't
  *                overwrite a change you didn't know about (e.g. a sale)
  */
@@ -31,6 +35,7 @@ public record ItemRequest(
         @NotNull Instant pickupStart,
         @NotNull Instant pickupEnd,
         Long version,
-        UUID photoId
+        UUID photoId,
+        @Pattern(regexp = Item.ART) String art
 ) {
 }

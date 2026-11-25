@@ -8,7 +8,10 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+
+import com.thriftbite.backend.item.Item;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -29,7 +32,8 @@ public record BatchListingRequest(
             @NotNull @DecimalMin("0.01") @Digits(integer = 8, fraction = 2) BigDecimal originalPrice,
             @Min(1) @Max(10_000) int quantity,
             @NotBlank @Size(max = 200) String pickupLocation,
-            UUID photoId
+            UUID photoId,
+            @Pattern(regexp = Item.ART) String art
     ) {
     }
 }

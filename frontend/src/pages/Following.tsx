@@ -20,7 +20,7 @@ const kinds: Record<AlertKind, { label: string; tag: string; action: string }> =
   REPORT: { label: 'Report answered', tag: 'teal', action: 'See your reports' },
   CANCELLED: { label: 'Pickup cancelled', tag: 'orange', action: 'See your reservations' },
 }
-const tints = ['var(--lime)', 'var(--orange)', 'var(--cream)']
+const tints = ['var(--lime-soft)', 'var(--orange-soft)', 'var(--cream)']
 
 /** "Today", "Yesterday" or "Nov 4", in Manila time. */
 function dayHeading(iso: string, now: number): string {
@@ -78,7 +78,7 @@ export function Following() {
       {problem && <p role="alert" className="err">{problem}</p>}
 
       {alerts.length === 0 ? (
-        <p className="panel cream" style={{ padding: '18px 20px' }}>
+        <p className="panel" style={{ padding: '18px 20px' }}>
           No alerts yet. When a store you follow posts food, or something happens with one of your pickups, it shows up here.
         </p>
       ) : groups.map((group) => (
@@ -108,7 +108,7 @@ export function Following() {
           {stores.length > 0 && <p className="muted">You get an alert when they post food.</p>}
         </div>
         {stores.length === 0 ? (
-          <div className="panel cream stack" style={gap(10, { padding: '18px 20px' })}>
+          <div className="panel stack" style={gap(10, { padding: '18px 20px' })}>
             <p>You don’t follow any stores yet. Open a store’s page and tap Follow, and you’ll hear when it posts food.</p>
             <div><a className="btn" href={href(paths.browse)}>See tonight’s deals</a></div>
           </div>
@@ -131,7 +131,7 @@ function FollowedRow({ store, tint, onToggle, onUnfollow }: { store: FollowedSto
   const about = [store.area, store.usualPostTime && `Usually posts around ${clockOf(store.usualPostTime)}`].filter(Boolean).join('. ')
   return (
     <li className="card-row follow-row">
-      <span className="avatar" aria-hidden="true" style={{ background: tint }}>{store.name.charAt(0)}</span>
+      <span className="avatar" aria-hidden="true" style={{ background: tint, color: 'var(--ink)' }}>{store.name.charAt(0)}</span>
       <div className="stack grow" style={gap(2)}>
         <a href={href(paths.store(store.slug))} style={{ fontWeight: 700 }}>{store.name}</a>
         {about && <span className="muted small">{about}{about.endsWith('.') ? '' : '.'}</span>}

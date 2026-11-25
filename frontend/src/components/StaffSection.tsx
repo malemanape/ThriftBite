@@ -54,7 +54,7 @@ export function StaffSection() {
       </div>
 
       {issued && (
-        <div role="status" className="card-row stack" style={gap(8, { background: 'var(--lime)' })}>
+        <div role="status" className="card-row stack" style={gap(8, { background: 'var(--lime-soft)' })}>
           <strong>Give {issued.username} this password. It won’t be shown again.</strong>
           <code className="num" style={{ fontSize: 24, fontWeight: 700, letterSpacing: 1 }}>{issued.temporaryPassword}</code>
           <p className="small">They log in with it and can change it on their account page. If it gets lost, give them a new one from here.</p>
@@ -73,7 +73,7 @@ export function StaffSection() {
       {loaded.data && staff.length === 0 && <p className="card-row muted">No staff accounts yet.</p>}
 
       <form className="card-row stack" style={gap(10)} onSubmit={add}>
-        <div className="wrap-row" style={{ ['--gap' as string]: '12px', alignItems: 'flex-end' }}>
+        <div className="wrap-row" style={gap(12, { alignItems: 'flex-end' })}>
           <div className="field grow" style={{ maxWidth: 320 }}>
             <label htmlFor="staff-username">Username for a new staff account</label>
             <input id="staff-username" className="input" autoComplete="off" autoCapitalize="none" spellCheck={false}
@@ -108,7 +108,7 @@ function StaffRow({ member, busy, confirming, onNewPassword, onAskRemove, onCanc
     <div className="card-row stack" style={gap(10)}>
       <div className="spread" style={{ flexWrap: 'wrap', gap: 12 }}>
         <div className="row" style={gap(12)}>
-          <span className="avatar" aria-hidden="true" style={{ background: 'var(--orange)' }}>{member.username.charAt(0)}</span>
+          <span className="avatar orange" aria-hidden="true">{member.username.charAt(0)}</span>
           <div>
             <strong>{member.username}</strong>
             <p className="hint">Added {dayOf(member.addedAt)}</p>
@@ -125,7 +125,7 @@ function StaffRow({ member, busy, confirming, onNewPassword, onAskRemove, onCanc
       {confirming && (
         <div className="panel stack" style={gap(10, { padding: 14, borderColor: 'var(--bad)' })}>
           <p><strong>Remove {member.username}?</strong> They’re logged out and can’t log in again. What they listed stays up.</p>
-          <div className="wrap-row" style={{ ['--gap' as string]: '8px' }}>
+          <div className="wrap-row" style={gap(8)}>
             <button type="button" className="btn sm" onClick={onCancelRemove}>Keep the account</button>
             <button type="button" className="btn sm danger" disabled={busy} onClick={onRemove}>{busy ? 'Removing…' : 'Remove account'}</button>
           </div>

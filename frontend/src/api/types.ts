@@ -92,6 +92,8 @@ export interface ItemResponse {
   storeSlug: string
   /** Show it with photoUrl(); null if the listing has no photo. */
   photoId: string | null
+  /** The food drawing the store picked for when there's no photo (see lib/art.ts), or null. */
+  art: string | null
   version: number
 }
 
@@ -109,6 +111,8 @@ export interface ItemRequest {
   version?: number
   /** A photo from api.uploadPhoto(). Leaving it out means "no photo", also when updating. */
   photoId?: string | null
+  /** The food drawing for when there's no photo. Leaving it out lets the app pick. */
+  art?: string | null
 }
 
 /** What uploading a photo gives back. The size is the stored photo's, in pixels. */
@@ -272,6 +276,8 @@ export interface UsualListing {
   suggestedQuantity: number | null
   /** The photo it last had, so posting again keeps it. */
   photoId: string | null
+  /** The drawing it last had. */
+  art: string | null
   alreadyListed: boolean
 }
 
@@ -281,6 +287,7 @@ export interface BatchListingRequest {
   items: {
     name: string; description?: string; price: number; originalPrice: number; quantity: number; pickupLocation: string
     photoId?: string | null
+    art?: string | null
   }[]
 }
 

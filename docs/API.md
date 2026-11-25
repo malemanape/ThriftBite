@@ -13,7 +13,7 @@ Every endpoint the frontend uses. Back to the [README](../README.md).
 | POST | `/api/account/recovery-codes` | logged in | Make a new set of recovery codes (asks for the password again) |
 | GET | `/api/account/export` | logged in | Download everything kept about the account, as JSON |
 | POST | `/api/account/delete` | consumer | Delete the account (asks for the password again) |
-| GET | `/api/items?q=&page=&size=` | anyone | Browse food for sale, soonest-expiring first |
+| GET | `/api/items?q=&page=&size=` | anyone | Browse food for sale, soonest-expiring first; `q` is up to 120 characters |
 | GET | `/api/items/{id}` | anyone | One listing |
 | GET | `/api/stores/{slug}` | anyone | A store's public page: profile, what it has on sale now, and its last 30 days in numbers |
 | PUT | `/api/stores/{slug}/follow` | consumer | Follow a store, or turn its alerts on or off (`{"alertsOn": false}`) |
@@ -23,7 +23,7 @@ Every endpoint the frontend uses. Back to the [README](../README.md).
 | GET | `/api/alerts/count` | consumer | Just the unread count, for the number on the nav |
 | POST | `/api/alerts/read`, `/api/alerts/{id}/read` | consumer | Mark all, or one, as read |
 | GET | `/api/owner/items` | owner | Your own listings |
-| POST | `/api/owner/items` | owner | Create a listing |
+| POST | `/api/owner/items` | owner | Create a listing; `art` picks the food drawing shown without a photo (`rice-bowl`, `veg-bowl`, `cup`, `buns`, `swirl`, `long-bread`, `rolls`, `loaf`, `croissant`, or null) |
 | PUT | `/api/owner/items/{id}` | owner | Edit a listing (send the `version` you loaded) |
 | DELETE | `/api/owner/items/{id}` | owner | Remove a listing |
 | GET | `/api/owner/items/usual?for=` | owner | "Post again": what the store usually lists and how it went last time, for today or tomorrow |

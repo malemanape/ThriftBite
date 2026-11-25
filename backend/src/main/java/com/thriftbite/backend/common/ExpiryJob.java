@@ -15,21 +15,13 @@ import java.time.Instant;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * Housekeeping:
- * 1. reservations whose pickup deadline passed are expired and their food is restocked;
- * 2. then food past its expiry time is taken off sale (including anything just restocked);
- * 3. alerts older than a month are deleted;
- * 4. about once an hour, photos nothing shows anymore are deleted.
+ * Housekeeping, in this order: expire missed pickups and restock their food, take
+ * expired food off sale, delete month-old alerts, and (hourly) delete unused photos.
  *
- * It runs on a schedule, and also on demand from {@link LazyExpiryInterceptor}
- * before requests that read or change stock. Free hosting tiers put the app to
- * sleep when nobody uses it, and a sleeping app runs no schedule, so food held
- * by a missed pickup would stay off sale until the next scheduled run. Running
- * it on demand (at most once per {@code lazy-min-gap}) means the first request
- * after waking sees the real stock.
- *
- * Browsing and checkout already ignore expired food on their own, so if this
- * runs late, nobody can buy expired food in the meantime.
+ * Runs on a schedule and also from {@link LazyExpiryInterceptor} before stock is read,
+ * at most once per {@code lazy-min-gap}: a free host sleeps and runs no schedule, and
+ * the first request after waking should see the real stock. Browsing and checkout
+ * ignore expired food anyway, so running late never lets anyone buy it.
  */
 @Component
 public class ExpiryJob {

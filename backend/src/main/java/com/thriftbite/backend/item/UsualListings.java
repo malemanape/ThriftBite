@@ -75,7 +75,10 @@ public class UsualListings {
                 SELECT chosen.*,
                        (SELECT x.photo_id FROM items x          -- the newest photo this food has had
                          WHERE x.store_id = :store AND lower(x.name) = lower(chosen.name) AND x.photo_id IS NOT NULL
-                         ORDER BY x.created_at DESC LIMIT 1) AS photo_id
+                         ORDER BY x.created_at DESC LIMIT 1) AS photo_id,
+                       (SELECT x.art FROM items x               -- and the newest drawing
+                         WHERE x.store_id = :store AND lower(x.name) = lower(chosen.name) AND x.art IS NOT NULL
+                         ORDER BY x.created_at DESC LIMIT 1) AS art
                   FROM chosen ORDER BY lower(name)
                 """, params, (rs, row) -> {
                     int listed = rs.getInt("listed");
@@ -92,6 +95,7 @@ public class UsualListings {
                             soldOutAt == null ? null : LocalTime.ofInstant(soldOutAt, ZONE).withNano(0),
                             suggest(listed, sold, soldOutAt, pickupStart),
                             rs.getObject("photo_id", UUID.class),
+                            rs.getString("art"),
                             alreadyListed.contains(rs.getString("name").toLowerCase()));
                 });
     }

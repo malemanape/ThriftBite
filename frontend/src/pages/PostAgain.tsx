@@ -80,7 +80,7 @@ function Usual({ usual, store, day, dayWord, now }: { usual: UsualListing[]; sto
         pickupEnd: manilaInstant(day, end),
         items: chosen.map((u) => ({
           name: u.name, description: u.description ?? undefined, price: u.price, originalPrice: u.originalPrice,
-          quantity: picks[u.name].quantity, pickupLocation: u.pickupLocation, photoId: u.photoId,
+          quantity: picks[u.name].quantity, pickupLocation: u.pickupLocation, photoId: u.photoId, art: u.art,
         })),
       })
       setPosted(made.length)
@@ -113,7 +113,7 @@ function Usual({ usual, store, day, dayWord, now }: { usual: UsualListing[]; sto
           return (
             <div key={u.name} className={`usual-row${active ? '' : ' off'}`}>
               <input id={id} type="checkbox" checked={active} disabled={u.alreadyListed}
-                onChange={(e) => set(u.name, { on: e.target.checked })} style={{ width: 20, height: 20, accentColor: 'var(--ink)' }} />
+                onChange={(e) => set(u.name, { on: e.target.checked })} style={{ width: 20, height: 20, accentColor: 'var(--teal)' }} />
               <div className="row" style={gap(12)}>
                 {u.photoId && <img className="thumb" src={photoUrl(u.photoId, 'thumb')} alt="" loading="lazy" />}
                 <div className="stack grow" style={gap(2)}>
@@ -158,7 +158,7 @@ function Usual({ usual, store, day, dayWord, now }: { usual: UsualListing[]; sto
         {timeProblem
           ? <span role="alert" className="err">{timeProblem}</span>
           : <span className="hint">From your <a href={href(paths.storeProfile)}>store profile</a>. Change it there to update the default.</span>}
-        <p style={{ borderTop: '2px solid var(--ink)', paddingTop: 12 }}>
+        <p style={{ borderTop: '3px dashed var(--halo)', paddingTop: 12 }}>
           {chosen.length === 0
             ? 'Tick the listings you want to post.'
             : `${plural(units, 'unit')} for pickup ${dayWord}${timeProblem ? '' : `, ${clockWindow(start, end)}`}, at ${store.name}.`}

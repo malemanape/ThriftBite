@@ -26,19 +26,12 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Turns an uploaded file into the two JPEGs the app keeps: one for a store or
- * listing page and a smaller one for lists.
+ * Turns an upload into the two JPEGs the app keeps (page size and list size) by
+ * decoding and redrawing it, so nothing from the original file is stored.
  *
- * Nothing from the upload is stored as it arrived. The picture is decoded and
- * drawn again, which
- * - proves it really is a picture (a renamed script or a half-broken file fails to decode);
- * - drops everything else a photo file carries: where it was taken, the phone model, comments;
- * - makes every photo the same format and a size that's quick to load on mobile data.
- *
- * Memory is the thing to watch: the free host has 512 MB, and a 24-megapixel
- * photo is about 100 MB once decoded. So the size is read from the file's
- * header before any pixels are, big photos are decoded at a fraction of their
- * size, and only two are worked on at once.
+ * Built for a 512 MB host: the size is read from the header first, big photos are
+ * decoded at a fraction of their size, and two are processed at a time.
+ * See "Photos" in docs/DESIGN.md.
  */
 @Component
 public class PhotoProcessor {
