@@ -54,7 +54,7 @@ export function Admin() {
           You’re the demo admin, so you only see the demo’s sample stores. Real sign-ups need a real admin.
         </p>
       )}
-      <p className="panel cream" style={{ padding: '16px 20px' }}>
+      <p className="panel" style={{ padding: '16px 20px' }}>
         Before approving, check that the store is real: look it up, or call the number on its storefront. Approved stores can post food right away.
       </p>
       {problem && <p role="alert" className="err">{problem}</p>}

@@ -128,7 +128,7 @@ export function OwnerToday() {
           <LiveBadge what="New reservations" />
         </div>
         {pickups.length === 0 ? (
-          <p className="panel cream" style={{ padding: '18px 20px' }}>
+          <p className="panel" style={{ padding: '18px 20px' }}>
             No one is waiting right now. New reservations show up here, each with a code the buyer reads out at your counter.
           </p>
         ) : (

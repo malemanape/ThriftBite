@@ -233,7 +233,7 @@ function ProfileForm({ store, onReload }: { store: StoreProfile; onReload: () =>
 
         <aside className="stack" style={gap(12)} aria-label="Preview">
           <strong>How buyers will see it</strong>
-          <div className="card cream stack" style={gap(8, { padding: 20 })}>
+          <div className="card stack" style={gap(8, { padding: 20 })}>
             {photoId && <div className="photo shot store-shot"><img src={photoUrl(photoId, 'thumb')} alt="" /></div>}
             <h3 className="wide" style={{ fontSize: 26, lineHeight: '30px' }}>{draft.name.trim() || 'Your store'}</h3>
             {place ? <strong>{place}</strong> : <span className="muted">Add your address so buyers can find you.</span>}

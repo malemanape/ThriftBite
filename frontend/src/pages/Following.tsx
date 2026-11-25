@@ -78,7 +78,7 @@ export function Following() {
       {problem && <p role="alert" className="err">{problem}</p>}
 
       {alerts.length === 0 ? (
-        <p className="panel cream" style={{ padding: '18px 20px' }}>
+        <p className="panel" style={{ padding: '18px 20px' }}>
           No alerts yet. When a store you follow posts food, or something happens with one of your pickups, it shows up here.
         </p>
       ) : groups.map((group) => (
@@ -108,7 +108,7 @@ export function Following() {
           {stores.length > 0 && <p className="muted">You get an alert when they post food.</p>}
         </div>
         {stores.length === 0 ? (
-          <div className="panel cream stack" style={gap(10, { padding: '18px 20px' })}>
+          <div className="panel stack" style={gap(10, { padding: '18px 20px' })}>
             <p>You don’t follow any stores yet. Open a store’s page and tap Follow, and you’ll hear when it posts food.</p>
             <div><a className="btn" href={href(paths.browse)}>See tonight’s deals</a></div>
           </div>

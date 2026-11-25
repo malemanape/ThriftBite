@@ -24,7 +24,7 @@ export function ProblemPanel({ error, onRetry }: { error: unknown; onRetry?: () 
 /** An empty screen is an invitation to act. */
 export function Empty({ title, children, action }: { title: string; children?: ReactNode; action?: ReactNode }) {
   return (
-    <section className="card cream empty">
+    <section className="card empty">
       <img src={thryxFull} alt="" width={200} height={196} className="hide-phone" />
       <div className="stack" style={{ maxWidth: 560 }}>
         <h2 className="wide" style={{ fontSize: 30, lineHeight: '34px' }}>{title}</h2>

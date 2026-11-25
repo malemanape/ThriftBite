@@ -1,4 +1,5 @@
 import { arts, artFor } from '../lib/art'
+import { gap } from '../lib/style'
 
 /**
  * Lets a store pick the drawing buyers see when a listing has no photo.
@@ -7,7 +8,7 @@ import { arts, artFor } from '../lib/art'
 export function ArtPicker({ value, name, onChange }: { value: string | null; name: string; onChange: (art: string | null) => void }) {
   const guess = artFor(null, name).name
   return (
-    <fieldset className="stack" style={{ border: 0, margin: 0, padding: 0, ['--gap' as string]: '8px' }}>
+    <fieldset className="stack" style={gap(8, { border: 0, margin: 0, padding: 0 })}>
       <legend style={{ fontWeight: 600, marginBottom: 8 }}>Drawing, when there’s no photo</legend>
       <div className="art-picker">
         {arts.map((art) => (

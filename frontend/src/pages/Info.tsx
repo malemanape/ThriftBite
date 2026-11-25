@@ -196,7 +196,7 @@ export function Privacy() {
         </section>
       ))}
       <section
-        className="panel cream stack"
+        className="panel stack"
         style={gap(6, { padding: "18px 20px" })}
       >
         <strong>About the food</strong>

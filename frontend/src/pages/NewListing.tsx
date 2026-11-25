@@ -136,7 +136,7 @@ function ListingForm({ start }: { start: Draft }) {
         <form className="card stack" style={gap(18, { padding: 24 })} onSubmit={submit} noValidate>
           {field('name', 'Food', <input {...attrs('name')} maxLength={120} placeholder="Ensaymada, box of 6" />)}
           {field('description', 'Details (optional)', <textarea {...attrs('description')} maxLength={500} rows={3}
-            placeholder="Baked this morning. Ube and cheese." style={{ resize: 'vertical', padding: '10px 14px', height: 'auto' }} />)}
+            placeholder="Baked this morning. Ube and cheese." />)}
           <PhotoPicker id="listing-photo" label="Photo (optional)" photoId={photoId} onChange={setPhotoId}
             hint="Listings with a photo of the actual food get reserved faster. Any phone photo works." />
           {!photoId && <ArtPicker value={art} name={draft.name} onChange={setArt} />}
