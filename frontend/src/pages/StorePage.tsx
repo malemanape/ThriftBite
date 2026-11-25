@@ -172,7 +172,7 @@ export function StorePage({ slug }: { slug: string }) {
 
       {store.hours.length > 0 && (
         <section className="card" style={{ maxWidth: 420 }}>
-          <div className="card-head"><h2 style={{ fontSize: 18, fontWeight: 800 }}>Opening hours</h2></div>
+          <div className="card-head"><h2 style={{ fontSize: 20 }}>Opening hours</h2></div>
           <table className="tbl">
             <tbody>
               {(['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'] as const).map((weekday) => {
@@ -180,7 +180,7 @@ export function StorePage({ slug }: { slug: string }) {
                 const today = weekday === weekdayOf(manilaDate(now))
                 return (
                   <tr key={weekday} style={{ fontWeight: today ? 800 : undefined }}>
-                    <th scope="row" style={{ border: 0, borderBottom: '1px solid var(--rule)', fontSize: 16, color: 'inherit', fontWeight: 'inherit' }}>
+                    <th scope="row">
                       {dayName(weekday)}{today && <span className="sr"> (today)</span>}
                     </th>
                     <td className="r num">{hours ? clockWindow(hours.opens, hours.closes) : 'Closed'}</td>
@@ -203,11 +203,12 @@ export function StorePage({ slug }: { slug: string }) {
       </section>
 
       {mine.length > 0 && (
-        <div style={{ position: 'sticky', bottom: 16, zIndex: 5 }} className="cart-bar">
-          <div className="card spread" style={{ background: 'var(--ink)', color: '#fff', boxShadow: '5px 5px 0 var(--teal)', padding: '12px 16px 12px 22px' }}>
+        <div className="cart-bar">
+          <div className="ticket-bar">
             <p><strong>{plural(mine.length, 'item')} from {store.name} in your cart.</strong>{' '}
-              <span style={{ color: '#CDE3E2' }}>Pay {peso(mine.reduce((sum, line) => sum + line.lineTotal, 0))} at pickup.</span></p>
-            <a className="btn lime sm" href={href(paths.cart)} style={{ boxShadow: '2px 2px 0 #fff' }}>Review cart</a>
+              Pay {peso(mine.reduce((sum, line) => sum + line.lineTotal, 0))} at pickup.</p>
+            <span className="tear" aria-hidden="true" />
+            <a className="btn lime" href={href(paths.cart)}>Review cart</a>
           </div>
         </div>
       )}
