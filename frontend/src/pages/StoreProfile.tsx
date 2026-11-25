@@ -169,7 +169,7 @@ function ProfileForm({ store, onReload }: { store: StoreProfile; onReload: () =>
                   <div className="hours-row">
                     <label className="row" style={gap(8, { cursor: 'pointer', fontWeight: 600 })}>
                       <input type="checkbox" checked={day.open} onChange={(e) => changeDay(weekday, { open: e.target.checked })}
-                        style={{ width: 18, height: 18, accentColor: 'var(--ink)' }} />
+                        style={{ width: 18, height: 18, accentColor: 'var(--teal)' }} />
                       {dayName(weekday)}
                     </label>
                     {day.open ? (
@@ -212,7 +212,7 @@ function ProfileForm({ store, onReload }: { store: StoreProfile; onReload: () =>
               </label>
               <label className="row" style={gap(8, { cursor: 'pointer' })}>
                 <input type="checkbox" checked={draft.gcash} onChange={(e) => change({ gcash: e.target.checked })}
-                  style={{ width: 18, height: 18, accentColor: 'var(--ink)' }} /> GCash
+                  style={{ width: 18, height: 18, accentColor: 'var(--teal)' }} /> GCash
               </label>
             </fieldset>
           </section>
@@ -233,7 +233,7 @@ function ProfileForm({ store, onReload }: { store: StoreProfile; onReload: () =>
 
         <aside className="stack" style={gap(12)} aria-label="Preview">
           <strong>How buyers will see it</strong>
-          <div className="card cream stack" style={gap(8, { padding: 20 })}>
+          <div className="card stack" style={gap(8, { padding: 20 })}>
             {photoId && <div className="photo shot store-shot"><img src={photoUrl(photoId, 'thumb')} alt="" /></div>}
             <h3 className="wide" style={{ fontSize: 26, lineHeight: '30px' }}>{draft.name.trim() || 'Your store'}</h3>
             {place ? <strong>{place}</strong> : <span className="muted">Add your address so buyers can find you.</span>}

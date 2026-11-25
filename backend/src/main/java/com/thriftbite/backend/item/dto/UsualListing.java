@@ -16,6 +16,7 @@ import java.util.UUID;
  * @param lastSoldOutAt     when it sold out that day (Manila time), or null if it didn't
  * @param suggestedQuantity a different amount worth trying, or null when last time's amount looks right
  * @param photoId           the photo it last had, if any, so posting again keeps it
+ * @param art               the food drawing it last had, if any
  * @param alreadyListed     true if it's already on sale for the day being posted for
  */
 public record UsualListing(
@@ -31,6 +32,7 @@ public record UsualListing(
         LocalTime lastSoldOutAt,
         Integer suggestedQuantity,
         UUID photoId,
+        String art,
         boolean alreadyListed
 ) {
 }

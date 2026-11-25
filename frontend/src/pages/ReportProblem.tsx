@@ -129,7 +129,7 @@ function ReportForm({ subject, reservationId, storeSlug, back }: Props & { subje
           {reportKinds.map((entry) => (
             <label key={entry.kind} className="row choice" style={gap(10)}>
               <input type="radio" name="kind" value={entry.kind} checked={kind === entry.kind} onChange={() => setKind(entry.kind)}
-                style={{ width: 20, height: 20, flex: 'none', accentColor: 'var(--ink)' }} />
+                style={{ width: 20, height: 20, flex: 'none', accentColor: 'var(--teal)' }} />
               {entry.label}
             </label>
           ))}
@@ -137,7 +137,7 @@ function ReportForm({ subject, reservationId, storeSlug, back }: Props & { subje
         </fieldset>
 
         {kind === 'UNSAFE_FOOD' && (
-          <p className="panel cream" style={{ padding: '12px 14px' }}>
+          <p className="panel" style={{ padding: '12px 14px' }}>
             If you feel sick, see a doctor first. Keep the food, or a photo of it, if you can.
           </p>
         )}
@@ -146,8 +146,7 @@ function ReportForm({ subject, reservationId, storeSlug, back }: Props & { subje
           <label htmlFor="details">What happened?{kind !== 'OTHER' && ' (optional)'}</label>
           <textarea id="details" className={`input${touched && detailsProblem ? ' bad' : ''}`} rows={4} maxLength={MAX_DETAILS}
             value={details} onChange={(e) => setDetails(e.target.value)}
-            aria-invalid={touched && detailsProblem ? true : undefined} aria-describedby="details-hint"
-            style={{ resize: 'vertical', padding: '10px 14px', height: 'auto' }} />
+            aria-invalid={touched && detailsProblem ? true : undefined} aria-describedby="details-hint" />
           {touched && detailsProblem
             ? <span id="details-hint" role="alert" className="err">{detailsProblem}</span>
             : <span id="details-hint" className="hint">When you went, and what you saw. Leave out phone numbers and other private details.</span>}

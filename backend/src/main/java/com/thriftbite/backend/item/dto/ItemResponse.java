@@ -8,7 +8,10 @@ import java.math.RoundingMode;
 import java.time.Instant;
 import java.util.UUID;
 
-/** @param photoId fetch it from /api/photos/{photoId} (add ?size=thumb for lists); null if the listing has none */
+/**
+ * @param photoId fetch it from /api/photos/{photoId} (add ?size=thumb for lists); null if the listing has none
+ * @param art     the food drawing the store chose for when there's no photo, or null
+ */
 public record ItemResponse(
         UUID id,
         String name,
@@ -26,6 +29,7 @@ public record ItemResponse(
         String storeName,
         String storeSlug,
         UUID photoId,
+        String art,
         long version
 ) {
 
@@ -47,6 +51,7 @@ public record ItemResponse(
                 item.getStore().getName(),
                 item.getStore().getSlug(),
                 item.getPhotoId(),
+                item.getArt(),
                 item.getVersion());
     }
 

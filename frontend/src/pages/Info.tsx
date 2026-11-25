@@ -55,7 +55,8 @@ export function Pending() {
                       ? "var(--lime)"
                       : i === 1
                         ? "var(--orange)"
-                        : "var(--paper)",
+                        : "var(--surface)",
+                  color: i === 0 ? "var(--on-lime)" : i === 1 ? "var(--on-orange)" : "var(--ink)",
                 }}
               >
                 {i + 1}
@@ -186,7 +187,7 @@ export function Privacy() {
         <section
           key={title}
           className="stack"
-          style={gap(8, { paddingTop: 20, borderTop: "2px solid var(--ink)" })}
+          style={gap(8, { paddingTop: 20, borderTop: "3px dashed var(--halo)" })}
         >
           <h2 className="wide" style={{ fontSize: 22 }}>
             {title}
@@ -195,7 +196,7 @@ export function Privacy() {
         </section>
       ))}
       <section
-        className="panel cream stack"
+        className="panel stack"
         style={gap(6, { padding: "18px 20px" })}
       >
         <strong>About the food</strong>

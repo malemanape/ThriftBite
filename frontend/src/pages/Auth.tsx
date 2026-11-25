@@ -4,6 +4,7 @@ import type { DemoRole, RegisterResponse } from '../api/types'
 import thryxFull from '../assets/thryx-full.png'
 import thryxHead from '../assets/thryx-head.png'
 import { RecoveryCodeList } from '../components/RecoveryCodeList'
+import { ThemeToggle } from '../components/ThemeToggle'
 import { messageOf } from '../lib/errors'
 import { homeFor, useAuth } from '../lib/auth-context'
 import { href, navigate, paths } from '../lib/route'
@@ -69,16 +70,17 @@ export function Auth({ mode }: { mode: 'login' | 'signup' }) {
   }
 
   return (
-    <div className="page" style={{ background: 'var(--teal)' }}>
-      <header className="wrap" style={{ height: 64, display: 'flex', alignItems: 'center' }}>
-        <a className="mark" href={href(paths.browse)} style={{ color: '#fff' }}>
+    <div className="page">
+      <header className="wrap" style={{ height: 72, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <a className="mark" href={href(paths.browse)}>
           <img src={thryxHead} alt="" width={40} height={40} />
-          <span style={{ color: '#fff' }}>ThriftBite</span>
+          <span>ThriftBite</span>
         </a>
+        <ThemeToggle />
       </header>
       <main className="wrap stack" style={gap(0, { alignItems: 'center', paddingBottom: 48 })}>
         <img src={thryxFull} alt="Thryx, the ThriftBite mascot, holding a burger" width={170} height={167}
-          style={{ width: 170, marginBottom: -30, position: 'relative', zIndex: 1 }} />
+          style={{ width: 170, marginBottom: -26, position: 'relative', zIndex: 1 }} />
         <div className="card stack" style={gap(20, { width: '100%', maxWidth: 460, padding: '40px 28px 28px' })}>
           {made ? (
             <div className="stack" style={gap(16)}>
@@ -100,9 +102,9 @@ export function Auth({ mode }: { mode: 'login' | 'signup' }) {
             <p className="muted">{signup ? 'Takes a minute. No card needed.' : 'Log in to reserve tonight’s surplus.'}</p>
           </div>
 
-          <div role="tablist" aria-label="Account" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
-            <a role="tab" className="chip" aria-selected={!signup} href={href(paths.login)} style={{ justifyContent: 'center', textDecoration: 'none' }}>Log in</a>
-            <a role="tab" className="chip" aria-selected={signup} href={href(paths.signup)} style={{ justifyContent: 'center', textDecoration: 'none', marginLeft: -2 }}>Sign up</a>
+          <div role="tablist" aria-label="Account" className="segmented" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+            <a role="tab" className="chip" aria-selected={!signup} href={href(paths.login)} style={{ justifyContent: 'center' }}>Log in</a>
+            <a role="tab" className="chip" aria-selected={signup} href={href(paths.signup)} style={{ justifyContent: 'center' }}>Sign up</a>
           </div>
 
           <form className="stack" style={gap(16)} onSubmit={submit}>
@@ -143,20 +145,20 @@ export function Auth({ mode }: { mode: 'login' | 'signup' }) {
                 )}
                 <label className="row small" style={{ alignItems: 'flex-start', cursor: 'pointer' }}>
                   <input type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)}
-                    style={{ width: 18, height: 18, margin: '2px 0 0', accentColor: 'var(--ink)', flex: 'none' }} />
+                    style={{ width: 18, height: 18, margin: '2px 0 0', accentColor: 'var(--teal)', flex: 'none' }} />
                   <span>I agree to the <a href={href(paths.privacy)}>privacy notice</a>. Stores, not ThriftBite, are responsible for the food they sell.</span>
                 </label>
               </>
             )}
 
             {error && <p role="alert" className="err">{error}</p>}
-            <button type="submit" className="btn teal big" disabled={busy}>
+            <button type="submit" className="btn lime big" disabled={busy}>
               {busy ? 'One moment…' : signup ? 'Create account' : 'Log in'}
             </button>
           </form>
 
           {demo.data && (
-            <div className="stack" style={gap(12, { borderTop: '2px solid var(--ink)', paddingTop: 20 })}>
+            <div className="stack" style={gap(12, { borderTop: '3px dashed var(--halo)', paddingTop: 20 })}>
               <div className="spread">
                 <strong>Just looking? Try the demo</strong>
                 <span className="hint">Resets every few hours</span>
@@ -170,7 +172,7 @@ export function Auth({ mode }: { mode: 'login' | 'signup' }) {
           )}
           </>)}
         </div>
-        <p style={{ marginTop: 24, color: '#fff', textAlign: 'center', maxWidth: 460 }}>
+        <p className="muted" style={{ marginTop: 24, textAlign: 'center', maxWidth: 460 }}>
           End-of-day food from Baguio bakeries and carinderias, at a portion of the usual price.
         </p>
       </main>

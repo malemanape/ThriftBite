@@ -30,7 +30,7 @@ The demo has one-tap logins for a buyer, a store owner and an admin, with sample
 
 | Who | What they can do |
 | --- | --- |
-| **Buyers** | Browse food for sale, soonest-expiring first. Reserve from several stores in one checkout and get a claim code per store, then pay at the counter. Follow stores to get an alert when they post, and see how much they've saved. |
+| **Buyers** | Browse food for sale store by store, or every deal at once, sorted by closing time or discount. Reserve from several stores in one checkout and get a claim code per store, then pay at the counter. Follow stores to get an alert when they post, and see how much they've saved. |
 | **Store owners** | List food with a photo and a pickup window, or use **Post again** to relist what usually sells, adjusted by how it went last week. Hand over pickups by checking claim codes, and see sales: money made, share sold, leftovers by weekday, pickups by hour. Add up to five staff logins for the counter. |
 | **Admins** | Approve new stores, answer buyers' problem reports, and suspend accounts that break the rules. Every action goes into an activity log that can't be edited. |
 
@@ -41,6 +41,7 @@ The demo has one-tap logins for a buyer, a store owner and an admin, with sample
 - **Accounts without email.** Signing up gives eight one-time recovery codes instead of a reset link. Changing a password logs out every other device at once.
 - **Fair limits.** Reserving is free, so missed pickups pause reserving for a while, wrong claim codes and passwords are rate-limited, and none of it lets a stranger lock someone else out.
 - **Safe photos.** Uploads are decoded and redrawn as JPEGs on the server, which drops location data and anything that isn't really a picture. It's sized to run in 512 MB.
+- **Light and dark.** The look takes its colours from Thryx, and dark mode follows the device until you pick one.
 - **Moderation that's honest.** Reports are checked against real pickups, the store never learns who reported it, and an admin can excuse an unfair missed pickup.
 
 The details behind each of these are in [How it works](docs/DESIGN.md).

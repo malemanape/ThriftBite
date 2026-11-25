@@ -81,14 +81,6 @@ public class User {
         this.demo = true;
     }
 
-    public void changeUsername(String newUsername) {
-        this.username = newUsername;
-    }
-
-    public void changePasswordHash(String newPasswordHash) {
-        this.passwordHash = newPasswordHash;
-    }
-
     /** A new password also logs out every device that's still holding an old login token. */
     public void changePassword(String newPasswordHash) {
         this.passwordHash = newPasswordHash;

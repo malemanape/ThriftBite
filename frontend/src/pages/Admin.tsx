@@ -54,7 +54,7 @@ export function Admin() {
           You’re the demo admin, so you only see the demo’s sample stores. Real sign-ups need a real admin.
         </p>
       )}
-      <p className="panel cream" style={{ padding: '16px 20px' }}>
+      <p className="panel" style={{ padding: '16px 20px' }}>
         Before approving, check that the store is real: look it up, or call the number on its storefront. Approved stores can post food right away.
       </p>
       {problem && <p role="alert" className="err">{problem}</p>}
@@ -66,7 +66,7 @@ export function Admin() {
           {waiting.map((user, i) => (
             <div key={user.id} className="card-row spread" style={{ borderTop: i === 0 ? 0 : undefined, padding: '14px 20px' }}>
               <div className="row" style={gap(12)}>
-                <span className="avatar" aria-hidden="true" style={{ background: 'var(--orange)' }}>{user.username.charAt(0)}</span>
+                <span className="avatar orange" aria-hidden="true">{user.username.charAt(0)}</span>
                 <div><strong>{user.username}</strong><p className="hint">Store owner</p></div>
               </div>
               <button type="button" className="btn sm lime" disabled={busy === user.id} onClick={() => approve(user)}>

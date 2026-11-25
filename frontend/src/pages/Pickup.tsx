@@ -33,8 +33,8 @@ export function Pickup({ reservationId }: { reservationId: string }) {
     <div className="stack" style={gap(0, { maxWidth: 420, margin: '0 auto', alignItems: 'stretch' })}>
       <a href={href(paths.reservations)} className="small" style={{ fontWeight: 600, marginBottom: 12 }}>Back to reservations</a>
       <img src={thryxFull} alt="" width={150} height={147} style={{ width: 150, alignSelf: 'center', marginBottom: -26, position: 'relative', zIndex: 1 }} />
-      <div className="card">
-        <div className="stack" style={gap(8, { background: r.status === 'RESERVED' ? 'var(--lime)' : 'var(--glow)', borderBottom: '2px dashed var(--ink)', padding: '28px 16px 20px', alignItems: 'center' })}>
+      <div className="card claim">
+        <div className={`claim-top ${r.status === 'RESERVED' ? 'ready' : 'done'}`}>
           <span style={{ fontWeight: 700 }}>{r.status === 'RESERVED' ? 'Show this at the counter' : 'This reservation is closed'}</span>
           <span className="wide num ticket-code" aria-label={`Claim code ${r.claimCode?.split('').join(' ')}`}>
             {r.claimCode && spacedCode(r.claimCode)}
@@ -47,7 +47,7 @@ export function Pickup({ reservationId }: { reservationId: string }) {
           {r.items.map((line) => (
             <p key={line.itemId} className="spread num"><span>{line.quantity} × {line.name}</span><span>{peso(line.unitPrice * line.quantity)}</span></p>
           ))}
-          <p className="spread num" style={{ borderTop: '2px solid var(--ink)', paddingTop: 10, fontWeight: 800 }}>
+          <p className="spread num" style={{ borderTop: '3px dashed var(--halo)', paddingTop: 10, fontWeight: 800 }}>
             <span>Pay at the counter</span><span>{peso(r.total)}</span>
           </p>
         </div>
