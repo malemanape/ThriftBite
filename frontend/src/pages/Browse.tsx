@@ -2,6 +2,7 @@ import { useCallback, useState, type FormEvent } from 'react'
 import { api } from '../api/client'
 import type { ItemResponse } from '../api/types'
 import thryxFull from '../assets/thryx-full.png'
+import { CartTicket } from '../components/CartTicket'
 import { DealCard } from '../components/DealCard'
 import { LiveBadge } from '../components/LiveBadge'
 import { DealSkeletons, Empty, ProblemPanel } from '../components/States'
@@ -192,14 +193,7 @@ export function Browse() {
         )}
 
       {cartCount > 0 && (
-        <div className="cart-bar">
-          <div className="ticket-bar">
-            <p><strong>{plural(cartCount, 'item')} from {plural(stores, 'store')}.</strong>{' '}
-              Pay {peso(cart?.total ?? 0)} at pickup.</p>
-            <span className="tear" aria-hidden="true" />
-            <a className="btn lime" href={href(paths.cart)}>Review cart</a>
-          </div>
-        </div>
+        <CartTicket summary={`${plural(cartCount, 'item')} from ${plural(stores, 'store')}.`} total={peso(cart?.total ?? 0)} />
       )}
     </div>
   )

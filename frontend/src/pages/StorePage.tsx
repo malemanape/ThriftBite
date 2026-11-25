@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react'
 import { ApiError, api, photoUrl } from '../api/client'
 import type { FollowState, StoreProfile } from '../api/types'
+import { CartTicket } from '../components/CartTicket'
 import { DealCard } from '../components/DealCard'
 import { LiveBadge } from '../components/LiveBadge'
 import { Loading, ProblemPanel } from '../components/States'
@@ -83,7 +84,7 @@ export function StorePage({ slug }: { slug: string }) {
 
   return (
     <div className="stack" style={gap(28)}>
-      <section className={`card cream store-head${store.photoId ? ' with-photo' : ''}`}>
+      <section className={`card store-head${store.photoId ? ' with-photo' : ''}`}>
         {store.photoId && (
           <div className="photo shot store-shot"><img src={photoUrl(store.photoId)} alt={`${store.name}, from outside`} /></div>
         )}
@@ -151,7 +152,7 @@ export function StorePage({ slug }: { slug: string }) {
         </div>
         {problem && <p role="alert" className="err">{problem}</p>}
         {items.length === 0 ? (
-          <div className="panel cream stack" style={gap(6, { padding: '20px 24px' })}>
+          <div className="panel stack" style={gap(6, { padding: '20px 24px' })}>
             <strong style={{ fontSize: 18 }}>Nothing for pickup right now.</strong>
             <p>
               {stats.usualPostTime
@@ -192,7 +193,7 @@ export function StorePage({ slug }: { slug: string }) {
         </section>
       )}
 
-      <section className="panel cream stack" style={gap(6, { padding: '18px 20px' })}>
+      <section className="panel stack" style={gap(6, { padding: '18px 20px' })}>
         <strong>About the food</strong>
         <p>{store.name} made this food and is responsible for it. Ask at the counter about allergens before you pay.</p>
         {isBuyer && (
@@ -203,14 +204,8 @@ export function StorePage({ slug }: { slug: string }) {
       </section>
 
       {mine.length > 0 && (
-        <div className="cart-bar">
-          <div className="ticket-bar">
-            <p><strong>{plural(mine.length, 'item')} from {store.name} in your cart.</strong>{' '}
-              Pay {peso(mine.reduce((sum, line) => sum + line.lineTotal, 0))} at pickup.</p>
-            <span className="tear" aria-hidden="true" />
-            <a className="btn lime" href={href(paths.cart)}>Review cart</a>
-          </div>
-        </div>
+        <CartTicket summary={`${plural(mine.length, 'item')} from ${store.name} in your cart.`}
+          total={peso(mine.reduce((sum, line) => sum + line.lineTotal, 0))} />
       )}
     </div>
   )
