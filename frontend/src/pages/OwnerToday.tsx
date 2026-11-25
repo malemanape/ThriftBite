@@ -37,6 +37,7 @@ function requestFrom(item: ItemResponse, changes: Partial<ItemRequest> = {}): It
     pickupEnd: item.pickupEnd,
     version: item.version,
     photoId: item.photoId,   // an update without it would take the photo off
+    art: item.art,
     ...changes,
   }
 }
@@ -234,7 +235,7 @@ function PickupCard({ reservation: r, now, onDone }: { reservation: ReservationR
 
   return (
     <section className="card">
-      <div className="card-head" style={{ background: late ? 'var(--orange)' : 'var(--glow)' }}>
+      <div className="card-head" style={{ background: late ? 'var(--orange-soft)' : 'var(--glow)' }}>
         <div>
           <h3 style={{ fontSize: 18, fontWeight: 800 }}>{r.buyerName}</h3>
           <p className="small">Reserved {timeOf(r.createdAt)}</p>
@@ -248,7 +249,7 @@ function PickupCard({ reservation: r, now, onDone }: { reservation: ReservationR
         {r.items.map((line) => (
           <p key={line.itemId} className="spread num"><span>{line.quantity} × {line.name}</span><span>{peso(line.unitPrice * line.quantity)}</span></p>
         ))}
-        <p className="spread num" style={{ borderTop: '2px solid var(--ink)', paddingTop: 8, fontWeight: 800 }}>
+        <p className="spread num" style={{ borderTop: '3px dashed var(--halo)', paddingTop: 8, fontWeight: 800 }}>
           <span>Collect</span><span>{peso(r.total)}</span>
         </p>
         <form className="stack" style={gap(8, { marginTop: 6 })} onSubmit={submit}>
