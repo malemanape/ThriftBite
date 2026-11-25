@@ -7,12 +7,12 @@ import { useAuth } from '../lib/auth-context'
 import { messageOf } from '../lib/errors'
 import { dateLabel, dayOf, monthAndYear, monthShort, peso, pesoShort, plural, timeOf } from '../lib/format'
 import { reportKindLabel } from '../lib/reports'
+import { avatarTone } from '../lib/avatar'
 import { href, navigate, paths } from '../lib/route'
 import { gap } from '../lib/style'
 import { useLoad } from '../lib/useLoad'
 
 const since = { CONSUMER: 'Buying since', OWNER: 'Store account since', ADMIN: 'Admin since' } as const
-const avatarClass = { CONSUMER: 'lime', OWNER: 'orange', ADMIN: 'teal' } as const
 
 function problemOf(err: unknown): string {
   return err instanceof ApiError && err.retryAfter
@@ -32,7 +32,7 @@ export function Account() {
     <div className="stack" style={gap(24, { maxWidth: 760 })}>
       <div className="page-head">
         <div className="row" style={gap(14)}>
-          <span className={`avatar ${avatarClass[account.role]}`} aria-hidden="true" style={{ width: 56, height: 56, fontSize: 26, borderRadius: 16 }}>
+          <span className={`avatar ${avatarTone(account.role)}`} aria-hidden="true" style={{ width: 56, height: 56, fontSize: 26, borderRadius: 16 }}>
             {account.username.charAt(0)}
           </span>
           <div className="stack" style={gap(2)}>
@@ -143,7 +143,7 @@ function MyReports() {
           </div>
           <span className="muted small">{report.storeName}, {dayOf(report.createdAt)}</span>
           {report.details && <p>“{report.details}”</p>}
-          {report.reply && <p className="panel cream" style={{ padding: '10px 14px' }}><strong>Our reply:</strong> {report.reply}</p>}
+          {report.reply && <p className="panel" style={{ padding: '10px 14px' }}><strong>Our reply:</strong> {report.reply}</p>}
         </div>
       ))}
     </section>

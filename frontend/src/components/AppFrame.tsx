@@ -3,6 +3,7 @@ import thryxHead from '../assets/thryx-head.png'
 import { homeFor, useAuth } from '../lib/auth-context'
 import { href, paths, useRoute } from '../lib/route'
 import type { AdminSummary } from '../api/types'
+import { avatarTone } from '../lib/avatar'
 import { useAdminSummary } from '../lib/useAdminSummary'
 import { useUnreadAlerts } from '../lib/useUnreadAlerts'
 import { Icon, type IconName } from './Icon'
@@ -58,8 +59,6 @@ function Badge({ count }: { count: number | undefined }) {
   return <><span className="count" aria-hidden="true">{count > 99 ? '99+' : count}</span><span className="sr"> ({count} new)</span></>
 }
 
-const avatarClass: Record<string, string> = { OWNER: 'orange', ADMIN: 'teal', CONSUMER: 'lime' }
-
 /** Header with the nav for the signed-in role; on phones the nav moves to a bottom tab bar. */
 export function AppFrame({ children }: { children: ReactNode }) {
   const { user } = useAuth()
@@ -99,7 +98,7 @@ export function AppFrame({ children }: { children: ReactNode }) {
             </a>
           )}
           {user ? (
-            <a className={`avatar ${avatarClass[user.role] ?? ''} hide-phone`} href={href(paths.account)} aria-label={`Account: ${user.username}`}>
+            <a className={`avatar ${avatarTone(user.role)} hide-phone`} href={href(paths.account)} aria-label={`Account: ${user.username}`}>
               {user.username.charAt(0)}
             </a>
           ) : (
