@@ -32,6 +32,9 @@ public class ItemService {
 
     static final int MAX_PAGE_SIZE = 50;
 
+    /** As long as the longest food name (see ItemRequest). A longer search can't match anything, and each one is scanned against every listing. */
+    static final int MAX_QUERY_LENGTH = 120;
+
     private final ItemRepository items;
     private final UserRepository users;
     private final StoreRepository storeRepository;
@@ -60,6 +63,9 @@ public class ItemService {
 
     @Transactional(readOnly = true)
     public PageResponse<ItemResponse> browse(String query, int page, int size) {
+        if (query != null && query.length() > MAX_QUERY_LENGTH) {
+            throw new BadRequestException("Search for " + MAX_QUERY_LENGTH + " characters or fewer");
+        }
         PageRequest pageRequest = PageRequest.of(Math.max(page, 0), Math.clamp(size, 1, MAX_PAGE_SIZE));
         return PageResponse.from(
                 items.browse(ItemStatus.AVAILABLE, Instant.now(), likePattern(query), pageRequest),
@@ -96,6 +102,7 @@ public class ItemService {
                 request.expiresAt(), request.pickupLocation().trim(),
                 request.pickupStart(), request.pickupEnd());
         draft.usePhoto(request.photoId());
+        draft.useArt(request.art());
         Item item = items.saveAndFlush(draft);
         events.record(item.getId(), StockEventType.LISTED, item.getQuantity(), null, userId);
         alerts.dealsPosted(storeId);   // the store's followers hear about it
@@ -113,7 +120,7 @@ public class ItemService {
                 .map(entry -> create(userId, new ItemRequest(
                         entry.name(), entry.description(), entry.price(), entry.originalPrice(), entry.quantity(),
                         request.pickupEnd(),   // the listing comes off sale when pickup ends
-                        entry.pickupLocation(), request.pickupStart(), request.pickupEnd(), null, entry.photoId())))
+                        entry.pickupLocation(), request.pickupStart(), request.pickupEnd(), null, entry.photoId(), entry.art())))
                 .toList();
     }
 
@@ -145,6 +152,7 @@ public class ItemService {
         checkBusinessRules(request);
         photos.checkBelongsTo(item.getStore().getId(), request.photoId());
         item.usePhoto(request.photoId());
+        item.useArt(request.art());
         int before = item.getQuantity();
         item.update(request.name().trim(), request.description(),
                 request.price(), request.originalPrice(), request.quantity(),
