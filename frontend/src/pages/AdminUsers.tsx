@@ -114,7 +114,7 @@ function UserRow({ account, first, onChanged }: { account: AdminUser; first: boo
     <div className="card-row stack" style={gap(10, { borderTop: first ? 0 : undefined, padding: '14px 20px' })}>
       <div className="spread" style={{ flexWrap: 'wrap', gap: 12 }}>
         <div className="row" style={gap(12, { minWidth: 0 })}>
-          <span className="avatar" aria-hidden="true" style={{ background: isStore ? 'var(--orange)' : 'var(--lime)' }}>{account.username.charAt(0)}</span>
+          <span className={`avatar ${isStore ? 'orange' : 'lime'}`} aria-hidden="true">{account.username.charAt(0)}</span>
           <div style={{ minWidth: 0 }}>
             <strong>{account.username}</strong>
             <p className="hint">

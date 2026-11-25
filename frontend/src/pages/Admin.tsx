@@ -66,7 +66,7 @@ export function Admin() {
           {waiting.map((user, i) => (
             <div key={user.id} className="card-row spread" style={{ borderTop: i === 0 ? 0 : undefined, padding: '14px 20px' }}>
               <div className="row" style={gap(12)}>
-                <span className="avatar" aria-hidden="true" style={{ background: 'var(--orange)' }}>{user.username.charAt(0)}</span>
+                <span className="avatar orange" aria-hidden="true">{user.username.charAt(0)}</span>
                 <div><strong>{user.username}</strong><p className="hint">Store owner</p></div>
               </div>
               <button type="button" className="btn sm lime" disabled={busy === user.id} onClick={() => approve(user)}>

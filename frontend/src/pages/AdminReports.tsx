@@ -123,7 +123,7 @@ function ReportCard({ report, onAnswered }: { report: AdminReport; onAnswered: (
           {report.pickupMissed && (
             <label className="row" style={gap(10, { cursor: 'pointer' })}>
               <input type="checkbox" checked={excuse} onChange={(e) => setExcuse(e.target.checked)}
-                style={{ width: 20, height: 20, flex: 'none', accentColor: 'var(--ink)' }} />
+                style={{ width: 20, height: 20, flex: 'none', accentColor: 'var(--teal)' }} />
               <span>Don’t count this missed pickup against the buyer <span className="hint">(for when it wasn’t their fault)</span></span>
             </label>
           )}
