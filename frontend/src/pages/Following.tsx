@@ -20,7 +20,7 @@ const kinds: Record<AlertKind, { label: string; tag: string; action: string }> =
   REPORT: { label: 'Report answered', tag: 'teal', action: 'See your reports' },
   CANCELLED: { label: 'Pickup cancelled', tag: 'orange', action: 'See your reservations' },
 }
-const tints = ['var(--lime)', 'var(--orange)', 'var(--cream)']
+const tints = ['var(--lime-soft)', 'var(--orange-soft)', 'var(--cream)']
 
 /** "Today", "Yesterday" or "Nov 4", in Manila time. */
 function dayHeading(iso: string, now: number): string {
@@ -131,7 +131,7 @@ function FollowedRow({ store, tint, onToggle, onUnfollow }: { store: FollowedSto
   const about = [store.area, store.usualPostTime && `Usually posts around ${clockOf(store.usualPostTime)}`].filter(Boolean).join('. ')
   return (
     <li className="card-row follow-row">
-      <span className="avatar" aria-hidden="true" style={{ background: tint }}>{store.name.charAt(0)}</span>
+      <span className="avatar" aria-hidden="true" style={{ background: tint, color: 'var(--ink)' }}>{store.name.charAt(0)}</span>
       <div className="stack grow" style={gap(2)}>
         <a href={href(paths.store(store.slug))} style={{ fontWeight: 700 }}>{store.name}</a>
         {about && <span className="muted small">{about}{about.endsWith('.') ? '' : '.'}</span>}
